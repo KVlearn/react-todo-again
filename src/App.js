@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{useState} from 'react';
+import TextField from '@material-ui/core/TextField';
+import FormsTodo from './FormsTodo';
+import ListTodo from './ListTodo';
 import './App.css';
 
 function App() {
+  const [todos,setTodos]=useState([]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <h1>Welcome to my First App!!!</h1>
+       <FormsTodo
+       saveTodos={(todoValue)=>{
+        const trimmedValue=todoValue.trim();
+        if(trimmedValue.length > 0){
+         setTodos([...todos,trimmedValue]);
+        }
+      }
+     }/>
+      <ListTodo
+       todos={todos}
+       deleteTodo={(id)=>{
+         const newTodos= todos.filter((item,index)=> (index !== id))
+         setTodos(newTodos);  
+      }
+    }  
+       />
     </div>
   );
 }
